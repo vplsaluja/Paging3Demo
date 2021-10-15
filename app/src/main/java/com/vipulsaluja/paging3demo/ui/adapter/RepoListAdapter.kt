@@ -8,13 +8,13 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.vipulsaluja.paging3demo.R
-import com.vipulsaluja.paging3demo.data.models.Repo
+import com.vipulsaluja.paging3demo.data.models.Repository
 
 
 /**
  * Created by Vipul Saluja on 14-10-2021.
  */
-class RepoListAdapter : PagingDataAdapter<Repo, RepoListAdapter.ViewHolder>(COMPARATOR) {
+class RepoListAdapter : PagingDataAdapter<Repository, RepoListAdapter.ViewHolder>(COMPARATOR) {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val txtName: TextView = itemView.findViewById(R.id.txtName);
     }
@@ -31,11 +31,11 @@ class RepoListAdapter : PagingDataAdapter<Repo, RepoListAdapter.ViewHolder>(COMP
     }
 
     companion object {
-        private val COMPARATOR = object : DiffUtil.ItemCallback<Repo>() {
-            override fun areItemsTheSame(oldItem: Repo, newItem: Repo): Boolean =
+        private val COMPARATOR = object : DiffUtil.ItemCallback<Repository>() {
+            override fun areItemsTheSame(oldItem: Repository, newItem: Repository): Boolean =
                 oldItem.full_name == newItem.full_name
 
-            override fun areContentsTheSame(oldItem: Repo, newItem: Repo): Boolean =
+            override fun areContentsTheSame(oldItem: Repository, newItem: Repository): Boolean =
                 oldItem == newItem
 
         }

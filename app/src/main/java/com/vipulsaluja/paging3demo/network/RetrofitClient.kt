@@ -8,23 +8,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 /**
  * Created by Vipul Saluja on 14-10-2021.
  */
-class RetrofitClient {
+object RetrofitClient {
 
-    private lateinit var retrofit: Retrofit
+    private const val BASE_URL="https://api.github.com/"
 
-    init {
-        initRetrofit()
-    }
-
-    private fun initRetrofit() {
-        retrofit = Retrofit.Builder()
-            .baseUrl("https://api.github.com/")
+    fun getNetworkApi(): NetworkApi {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
             .build()
-    }
-
-    fun getNetworkApi(): NetworkApi {
-        return retrofit.create(NetworkApi::class.java)
+            .create(NetworkApi::class.java)
     }
 }

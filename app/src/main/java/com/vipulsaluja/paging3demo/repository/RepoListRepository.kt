@@ -9,9 +9,9 @@ import com.vipulsaluja.paging3demo.network.NetworkApi
 /**
  * Created by Vipul Saluja on 14-10-2021.
  */
-class GithubRepository(private val api: NetworkApi) {
-    fun getRepos(username: String) = Pager(
-        pagingSourceFactory = { GithubPagingSource(api, username) },
+class RepoListRepository(private val api: NetworkApi) {
+    fun fetchRepos(userName: String) = Pager(
+        pagingSourceFactory = { GithubPagingSource(api, userName) },
         config = PagingConfig(pageSize = 20)
     ).flow
 }

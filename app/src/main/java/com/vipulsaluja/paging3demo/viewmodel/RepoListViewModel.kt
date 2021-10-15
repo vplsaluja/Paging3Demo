@@ -4,8 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.vipulsaluja.paging3demo.repository.GithubRepository
-import com.vipulsaluja.paging3demo.data.models.Repo
+import com.vipulsaluja.paging3demo.repository.RepoListRepository
+import com.vipulsaluja.paging3demo.data.models.Repository
 import com.vipulsaluja.paging3demo.network.RetrofitClient
 import kotlinx.coroutines.flow.Flow
 
@@ -13,23 +13,18 @@ import kotlinx.coroutines.flow.Flow
 /**
  * Created by Vipul Saluja on 14-10-2021.
  */
-class GithubViewModel() : ViewModel() {
-    private var repo: GithubRepository
+class RepoListViewModel() : ViewModel() {
+    private var repository: RepoListRepository = RepoListRepository(RetrofitClient.getNetworkApi())
     private var currentUserName: String? = null
-    private var currentSearchResult: Flow<PagingData<Repo>>? = null
-    private val retrofitClient = RetrofitClient()
+    private var currentSearchResult: Flow<PagingData<Repository>>? = null
 
-    init {
-        repo = GithubRepository(retrofitClient.getNetworkApi())
-    }
-
-    fun searchRepos(username: String): Flow<PagingData<Repo>> {
+    fun searchRepos(username: String): Flow<PagingData<Repository>> {
         val lastResult = currentSearchResult
         if (username == currentUserName && lastResult != null) {
             return lastResult
         }
-        currentUserName == username
-        val newResult = repo.getRepos(username)
+        currentUserName = username
+        val newResult = repository.fetchRepos(username)
             .cachedIn(viewModelScope)
         currentSearchResult = newResult
         return newResult

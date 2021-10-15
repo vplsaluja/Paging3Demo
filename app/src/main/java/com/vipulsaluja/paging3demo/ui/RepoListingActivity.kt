@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vipulsaluja.paging3demo.R
 import com.vipulsaluja.paging3demo.ui.adapter.RepoListAdapter
 import com.vipulsaluja.paging3demo.ui.adapter.RepoLoadStateAdapter
-import com.vipulsaluja.paging3demo.viewmodel.GithubViewModel
+import com.vipulsaluja.paging3demo.viewmodel.RepoListViewModel
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity() {
+private const val REPO_NAME = "google"
+
+class RepoListingActivity : AppCompatActivity() {
 
     private var recyclerView: RecyclerView? = null
 
@@ -23,26 +25,26 @@ class MainActivity : AppCompatActivity() {
 
     private var repoListAdapter: RepoListAdapter? = null
 
-    private var viewModel: GithubViewModel? = null// by viewModels()
+    private var viewModel: RepoListViewModel? = null// by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_repo_listing)
 
         viewModel = ViewModelProvider(
             this,
             ViewModelProvider.AndroidViewModelFactory.getInstance(application)
-        ).get(GithubViewModel::class.java)
+        ).get(RepoListViewModel::class.java)
         repoListAdapter = RepoListAdapter()
         recyclerView = findViewById(R.id.recyclerView)
         recyclerView?.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
         recyclerView?.adapter = repoListAdapter?.withLoadStateHeaderAndFooter(
-            header = RepoLoadStateAdapter(retry = { search("google") }),
-            footer = RepoLoadStateAdapter(retry = { search("google") })
+            header = RepoLoadStateAdapter(retry = { search(REPO_NAME) }),
+            footer = RepoLoadStateAdapter(retry = { search(REPO_NAME) })
         )
         recyclerView?.layoutManager = LinearLayoutManager(this)
 
-        search("google")
+        search(REPO_NAME)
     }
 
     private fun search(username: String) {

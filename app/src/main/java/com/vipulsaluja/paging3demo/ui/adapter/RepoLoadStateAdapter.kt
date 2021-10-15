@@ -21,9 +21,9 @@ class RepoLoadStateAdapter(private val retry: () -> Unit) :
 
     class LoadStateViewHolder(itemView: View, retry: () -> Unit) :
         RecyclerView.ViewHolder(itemView) {
-        val errorMsg: TextView = itemView.findViewById(R.id.error_msg)
-        val progressBar: ProgressBar = itemView.findViewById(R.id.progress_bar)
-        val retryButton: Button = itemView.findViewById(R.id.retry_button)
+        val errorMsg: TextView = itemView.findViewById(R.id.txtErrorMsg)
+        val progressBar: ProgressBar = itemView.findViewById(R.id.progressBar)
+        val retryButton: Button = itemView.findViewById(R.id.btnRetry)
 
         init {
             retryButton.setOnClickListener { retry() }
