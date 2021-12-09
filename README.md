@@ -1,5 +1,12 @@
 # Paging3Demo
 This app is a demo for Paging3 and tells how we can use the Paging3 library in our project if we have to show the data to user pagewise.
+Follow the link for more details:
+
+https://medium.com/@vipulsaluja/pagination-in-android-with-paging-3-426950e4d910
+
+
+
+
 ## Introdcution
 It shows the list of the github repository page wise with the help of Paging3 library.
 ## Functionality
